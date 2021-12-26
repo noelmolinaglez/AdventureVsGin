@@ -6,4 +6,6 @@ const (
 	EndFunction   = "Ending Function"
 	FileName      = "FileName"
 	FunctionName  = "Function Name"
+	EndException  = "Ending Exception"
+	Error         = "Error"
 )
