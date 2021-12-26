@@ -19,8 +19,14 @@ func ListDepartments(c *gin.Context) {
 	db := config.DB
 	var departments []model.Department
 
-	db.Table("HumanResources.Department").Find(&departments)
+	if err := db.Table("HumanResources.Department").Find(&departments).Error; err != nil {
+		log.WithFields(log.
+			Fields{constants.Error: err.Error()}).
+			Info(constants.EndException)
 
+		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": departments})
+	}
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: lDepartments}).Info(constants.EndFunction)
-	c.JSON(http.StatusOK, gin.H{"data": departments})
 }

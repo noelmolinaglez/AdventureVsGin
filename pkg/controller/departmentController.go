@@ -15,7 +15,8 @@ const (
 func ListDepartments(c *gin.Context) {
 	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: lDepartments}).Info(constants.StartFunction)
 
-	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: lDepartments}).Info(constants.EndFunction)
 	humanResources.ListDepartments(c)
+
+	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: lDepartments}).Info(constants.EndFunction)
 
 }
