@@ -7,9 +7,12 @@ import (
 	"net/http"
 )
 
-func List(c *gin.Context) {
+func ListDepartments(c *gin.Context) {
+
+	db := config.DB
 	var departments []model.Department
-	config.DB.Find(&departments)
+
+	db.Table("HumanResources.Department").Find(&departments)
 
 	c.JSON(http.StatusOK, gin.H{"data": departments})
 
