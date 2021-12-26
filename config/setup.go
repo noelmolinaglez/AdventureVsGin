@@ -19,9 +19,9 @@ func ConnectDatabase() {
 	}
 
 	server := os.Getenv("SERVER")
-	port := os.Getenv("PORT")
+	port := os.Getenv("DATABASEPORT")
 	database := os.Getenv("DATABASE")
-	user := os.Getenv("USER")
+	user := os.Getenv("DATABASEUSER")
 	password := os.Getenv("PASSWORD")
 
 	dsn := fmt.Sprintf("sqlserver://%s:%s@%s:%s?database=%s", user, password, server, port, database)
