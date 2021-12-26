@@ -2,6 +2,8 @@ package utils
 
 // Globals Const
 const (
-	startFunction = "Starting Function"
-	endFunction   = "Ending Function"
+	StartFunction = "Starting Function"
+	EndFunction   = "Ending Function"
+	FileName      = "FileName"
+	FunctionName  = "Function Name"
 )
