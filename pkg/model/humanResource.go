@@ -34,3 +34,11 @@ type EmployeeDepartmentHistory struct {
 	EndDate          string `json:"EndDate"`
 	ModifiedDate     string `json:"ModifiedDate"`
 }
+
+type EmployeePayHistory struct {
+	BusinessEntityId uint    `json:"BusinessEntityID"`
+	RateChangeDate   string  `json:"RateChangeDate"`
+	Rate             float32 `json:"Rate"`
+	PayFrequency     uint    `json:"PayFrequency"`
+	ModifiedDate     string  `json:"ModifiedDate"`
+}
