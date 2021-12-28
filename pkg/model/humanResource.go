@@ -49,3 +49,10 @@ type JobCandidate struct {
 	Resume           string `json:"Resume"`
 	ModifiedDate     string `json:"ModifiedDate"`
 }
+
+type Shift struct {
+	ShiftId      uint   `json:"ShiftID"`
+	StartTime    string `json:"StartTime"`
+	EndTime      string `json:"EndTime"`
+	ModifiedDate string `json:"ModifiedDate"`
+}
