@@ -25,3 +25,12 @@ type Employee struct {
 	RowGuid           string `json:"rowguid"`
 	ModifiedDate      string `json:"ModifiedDate"`
 }
+
+type EmployeeDepartmentHistory struct {
+	BusinessEntityId uint   `json:"BusinessEntityID"`
+	DepartmentId     uint   `json:"DepartmentID" `
+	ShiftId          uint   `json:"ShiftID"`
+	StartDate        string `json:"StartDate"`
+	EndDate          string `json:"EndDate"`
+	ModifiedDate     string `json:"ModifiedDate"`
+}
