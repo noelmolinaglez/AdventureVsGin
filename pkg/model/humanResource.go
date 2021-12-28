@@ -42,3 +42,10 @@ type EmployeePayHistory struct {
 	PayFrequency     uint    `json:"PayFrequency"`
 	ModifiedDate     string  `json:"ModifiedDate"`
 }
+
+type JobCandidate struct {
+	JobCandidateId   uint   `json:"JobCandidateID"`
+	BusinessEntityId uint   `json:"BusinessEntityID"`
+	Resume           string `json:"Resume"`
+	ModifiedDate     string `json:"ModifiedDate"`
+}
