@@ -5,6 +5,7 @@ import (
 	"adventureVsModule/pkg/dto"
 	"adventureVsModule/pkg/model"
 	constants "adventureVsModule/pkg/utils"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
@@ -21,7 +22,10 @@ func ListDepartments(c *gin.Context, request dto.Request) {
 	var departments []model.Department
 
 	query := db.Table("HumanResources.Department")
-	query.Order("DepartmentID")
+
+	orderBy := fmt.Sprintf("%s %s", request.Field, request.Dir)
+
+	query.Order(orderBy)
 	query.Offset(request.Start).Limit(request.Limit)
 
 	if err := query.Find(&departments).Error; err != nil {
