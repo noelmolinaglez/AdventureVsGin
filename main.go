@@ -13,7 +13,11 @@ func main() {
 
 	config.ConnectDatabase()
 
-	r.GET("/", func(c *gin.Context) {
+	r.GET("/health", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{})
+	})
+
+	r.GET("/hello", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"data": "hello world"})
 	})
 
