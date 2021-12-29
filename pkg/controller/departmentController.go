@@ -17,7 +17,7 @@ const (
 func ListDepartments(c *gin.Context) {
 	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: lDepartments}).Info(constants.StartFunction)
 	var request dto.Request
-	if err := c.ShouldBind(&request); err != nil {
+	if err := c.ShouldBindJSON(&request); err != nil {
 
 		log.WithFields(log.Fields{constants.Error: err.Error()}).Info(constants.EndException)
 		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
