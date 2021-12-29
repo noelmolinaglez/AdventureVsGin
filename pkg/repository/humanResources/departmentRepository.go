@@ -2,6 +2,7 @@ package humanResources
 
 import (
 	"adventureVsModule/config"
+	"adventureVsModule/pkg/dto"
 	"adventureVsModule/pkg/model"
 	constants "adventureVsModule/pkg/utils"
 	"github.com/gin-gonic/gin"
@@ -14,7 +15,7 @@ const (
 	lDepartments         = "ListDepartments"
 )
 
-func ListDepartments(c *gin.Context) {
+func ListDepartments(c *gin.Context, request dto.Request) {
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: lDepartments}).Info(constants.StartFunction)
 	db := config.DB
 	var departments []model.Department
