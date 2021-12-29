@@ -20,7 +20,11 @@ func ListDepartments(c *gin.Context, request dto.Request) {
 	db := config.DB
 	var departments []model.Department
 
-	if err := db.Table("HumanResources.Department").Find(&departments).Error; err != nil {
+	query := db.Table("HumanResources.Department")
+	query.Order("DepartmentID")
+	query.Offset(request.Start).Limit(request.Limit)
+
+	if err := query.Find(&departments).Error; err != nil {
 		log.WithFields(log.
 			Fields{constants.Error: err.Error()}).
 			Info(constants.EndException)
