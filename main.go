@@ -17,10 +17,6 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{})
 	})
 
-	r.GET("/hello", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "hello world"})
-	})
-
 	r.GET("/departments", controller.ListDepartments)
 
 	r.Run()
