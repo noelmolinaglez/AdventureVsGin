@@ -2,6 +2,7 @@ package controller
 
 import (
 	"adventureVsModule/pkg/dto"
+	"adventureVsModule/pkg/model"
 	"adventureVsModule/pkg/repository/humanResources"
 	constants "adventureVsModule/pkg/utils"
 	"github.com/gin-gonic/gin"
@@ -12,6 +13,7 @@ import (
 const (
 	departmentController = "DepartmentController"
 	lDepartments         = "ListDepartments"
+	addDepartment        = "CreateDepartment"
 )
 
 func ListDepartments(c *gin.Context) {
@@ -27,5 +29,21 @@ func ListDepartments(c *gin.Context) {
 		humanResources.ListDepartments(c, request)
 	}
 	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: lDepartments}).Info(constants.EndFunction)
+
+}
+
+func CreateDepartment(c *gin.Context) {
+	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
+	var department model.Department
+	if err := c.ShouldBindJSON(&department); err != nil {
+
+		log.WithFields(log.Fields{constants.Error: err.Error()}).Info(constants.EndException)
+		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+
+	} else {
+
+		humanResources.CreateDepartment(c, department)
+	}
+	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
 
 }
