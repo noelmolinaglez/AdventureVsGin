@@ -1,9 +1,9 @@
 package model
 
 type Department struct {
-	DepartmentID uint   `json:"DepartmentID"`
-	Name         string `json:"Name"`
-	GroupName    string `json:"GroupName"`
+	DepartmentID uint   `json:"DepartmentID" gorm:"primary_key"`
+	Name         string `json:"Name" form:"name"`
+	GroupName    string `json:"GroupName" form:"groupName"`
 	ModifiedDate string `json:"ModifiedDate"`
 }
 
