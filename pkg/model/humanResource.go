@@ -1,10 +1,10 @@
 package model
 
 type Department struct {
-	DepartmentID uint   `json:"DepartmentID" gorm:"primary_key"`
-	Name         string `json:"Name" form:"name"`
-	GroupName    string `json:"GroupName" form:"groupName"`
-	ModifiedDate string `json:"ModifiedDate"`
+	DepartmentID uint   `json:"DepartmentID" gorm:"column:DepartmentID;primaryKey;autoIncrement:true"`
+	Name         string `json:"Name" form:"name" gorm:"column:Name"`
+	GroupName    string `json:"GroupName" form:"groupName" gorm:"column:GroupName"`
+	ModifiedDate string `json:"ModifiedDate" gorm:"column:ModifiedDate"`
 }
 
 type Employee struct {
