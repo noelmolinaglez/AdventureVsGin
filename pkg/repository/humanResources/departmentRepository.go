@@ -22,11 +22,9 @@ func ListDepartments(c *gin.Context, request dto.Request) {
 	db := config.DB
 	var departments []model.Department
 
-	query := db.Table("HumanResources.Department")
-
 	orderBy := fmt.Sprintf("%s %s", request.Field, request.Dir)
 
-	query.Order(orderBy)
+	query := db.Order(orderBy)
 	query.Offset(request.Start).Limit(request.Limit)
 
 	if err := query.Find(&departments).Error; err != nil {
