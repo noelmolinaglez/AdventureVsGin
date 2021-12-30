@@ -18,6 +18,7 @@ func main() {
 	})
 
 	r.GET("/departments", controller.ListDepartments)
+	r.POST("/departments/add", controller.CreateDepartment)
 
 	r.Run()
 }
