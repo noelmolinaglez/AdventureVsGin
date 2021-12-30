@@ -7,6 +7,10 @@ type Department struct {
 	ModifiedDate string `json:"ModifiedDate" gorm:"column:ModifiedDate"`
 }
 
+func (Department) TableName() string {
+	return "HumanResources.Department"
+}
+
 type Employee struct {
 	BusinessEntityId  uint   `json:"BusinessEntityID" gorm:"primary_key"`
 	NationalIdNumber  string `json:"NationalIDNumber"`
