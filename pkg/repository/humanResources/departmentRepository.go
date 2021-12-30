@@ -14,6 +14,7 @@ import (
 const (
 	departmentRepository = "DepartmentRepository"
 	lDepartments         = "ListDepartments"
+	addDepartment        = "addDepartments"
 )
 
 func ListDepartments(c *gin.Context, request dto.Request) {
@@ -38,4 +39,22 @@ func ListDepartments(c *gin.Context, request dto.Request) {
 		c.JSON(http.StatusOK, gin.H{"data": departments})
 	}
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: lDepartments}).Info(constants.EndFunction)
+}
+
+func CreateDepartment(c *gin.Context, department model.Department) {
+	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
+	db := config.DB
+
+	query := db.Table("HumanResources.Department")
+
+	if err := query.Create(&department).Error; err != nil {
+		log.WithFields(log.
+			Fields{constants.Error: err.Error()}).
+			Info(constants.EndException)
+
+		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+	} else {
+		c.JSON(http.StatusCreated, gin.H{"data": department})
+	}
+	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
 }
