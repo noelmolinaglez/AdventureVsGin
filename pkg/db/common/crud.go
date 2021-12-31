@@ -1,8 +1,8 @@
-package utils
+package common
 
 import (
 	"adventureVsModule/pkg/dto"
-
+	"adventureVsModule/pkg/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -18,8 +18,8 @@ func ReadValues(c *gin.Context, request dto.Request, db *gorm.DB, results interf
 
 	if err := query.Find(&results).Error; err != nil {
 		log.WithFields(log.
-			Fields{Error: err.Error()}).
-			Info(EndException)
+			Fields{utils.Error: err.Error()}).
+			Info(utils.EndException)
 
 		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
 	} else {

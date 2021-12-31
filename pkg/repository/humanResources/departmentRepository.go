@@ -2,6 +2,7 @@ package humanResources
 
 import (
 	"adventureVsModule/config"
+	"adventureVsModule/pkg/db/common"
 	"adventureVsModule/pkg/dto"
 	"adventureVsModule/pkg/model"
 	constants "adventureVsModule/pkg/utils"
@@ -21,7 +22,7 @@ func ListDepartments(c *gin.Context, request dto.Request) {
 	db := config.DB
 	var departments []model.Department
 
-	constants.ReadValues(c, request, db, departments)
+	common.ReadValues(c, request, db, departments)
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: lDepartments}).Info(constants.EndFunction)
 }
 
