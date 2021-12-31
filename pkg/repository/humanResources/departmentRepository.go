@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
+	"time"
 )
 
 const (
@@ -30,6 +31,7 @@ func CreateDepartment(c *gin.Context, department model.Department) {
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
 	db := config.DB
 
+	department.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
 	if err := db.Create(&department).Error; err != nil {
 		log.WithFields(log.
 			Fields{constants.Error: err.Error()}).
@@ -46,6 +48,7 @@ func UpdateDepartment(c *gin.Context, department model.Department) {
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
 	db := config.DB
 
+	department.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
 	if err := db.Updates(&department).Error; err != nil {
 		log.WithFields(log.
 			Fields{constants.Error: err.Error()}).
