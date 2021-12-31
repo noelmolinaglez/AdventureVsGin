@@ -24,6 +24,7 @@ func ListDepartments(c *gin.Context, request dto.Request) {
 	var departments []model.Department
 
 	common.ReadValues(c, request, db, departments)
+
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: lDepartments}).Info(constants.EndFunction)
 }
 
@@ -32,15 +33,8 @@ func CreateDepartment(c *gin.Context, department model.Department) {
 	db := config.DB
 
 	department.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
-	if err := db.Create(&department).Error; err != nil {
-		log.WithFields(log.
-			Fields{constants.Error: err.Error()}).
-			Info(constants.EndException)
+	common.Create(c, &department, db)
 
-		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
-	} else {
-		c.JSON(http.StatusCreated, gin.H{"data": department})
-	}
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
 }
 
