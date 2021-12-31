@@ -5,7 +5,6 @@ import (
 	"adventureVsModule/pkg/dto"
 	"adventureVsModule/pkg/model"
 	constants "adventureVsModule/pkg/utils"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
@@ -22,20 +21,7 @@ func ListDepartments(c *gin.Context, request dto.Request) {
 	db := config.DB
 	var departments []model.Department
 
-	orderBy := fmt.Sprintf("%s %s", request.Field, request.Dir)
-
-	query := db.Order(orderBy)
-	query.Offset(request.Start).Limit(request.Limit)
-
-	if err := query.Find(&departments).Error; err != nil {
-		log.WithFields(log.
-			Fields{constants.Error: err.Error()}).
-			Info(constants.EndException)
-
-		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
-	} else {
-		c.JSON(http.StatusOK, gin.H{"data": departments})
-	}
+	constants.ReadValues(c, request, db, departments)
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: lDepartments}).Info(constants.EndFunction)
 }
 
