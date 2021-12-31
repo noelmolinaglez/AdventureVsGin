@@ -26,3 +26,16 @@ func ReadValues(c *gin.Context, request dto.Request, db *gorm.DB, results interf
 		c.JSON(http.StatusOK, gin.H{"data": results})
 	}
 }
+
+func Create(c *gin.Context, instance interface{}, db *gorm.DB) {
+
+	if err := db.Create(instance).Error; err != nil {
+		log.WithFields(log.
+			Fields{utils.Error: err.Error()}).
+			Info(utils.EndException)
+
+		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+	} else {
+		c.JSON(http.StatusCreated, gin.H{"data": instance})
+	}
+}
