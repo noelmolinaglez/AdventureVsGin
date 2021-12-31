@@ -43,9 +43,23 @@ func CreateDepartment(c *gin.Context, department model.Department) {
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
 	db := config.DB
 
-	query := db.Table("HumanResources.Department")
+	if err := db.Create(&department).Error; err != nil {
+		log.WithFields(log.
+			Fields{constants.Error: err.Error()}).
+			Info(constants.EndException)
 
-	if err := query.Create(&department).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+	} else {
+		c.JSON(http.StatusCreated, gin.H{"data": department})
+	}
+	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
+}
+
+func UpdateDepartment(c *gin.Context, department model.Department) {
+	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
+	db := config.DB
+
+	if err := db.Updates(&department).Error; err != nil {
 		log.WithFields(log.
 			Fields{constants.Error: err.Error()}).
 			Info(constants.EndException)
