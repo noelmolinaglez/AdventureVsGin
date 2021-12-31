@@ -49,7 +49,7 @@ func CreateDepartment(c *gin.Context) {
 
 }
 
-func UdpateDepartment(c *gin.Context) {
+func UpdateDepartment(c *gin.Context) {
 	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: updateDepartment}).Info(constants.StartFunction)
 	var department model.Department
 	if err := c.ShouldBindJSON(&department); err != nil {
