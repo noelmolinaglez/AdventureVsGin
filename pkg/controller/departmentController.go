@@ -14,6 +14,7 @@ const (
 	departmentController = "DepartmentController"
 	lDepartments         = "ListDepartments"
 	addDepartment        = "CreateDepartment"
+	updateDepartment     = "UpdateDepartment"
 )
 
 func ListDepartments(c *gin.Context) {
@@ -45,5 +46,21 @@ func CreateDepartment(c *gin.Context) {
 		humanResources.CreateDepartment(c, department)
 	}
 	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
+
+}
+
+func UdpateDepartment(c *gin.Context) {
+	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: updateDepartment}).Info(constants.StartFunction)
+	var department model.Department
+	if err := c.ShouldBindJSON(&department); err != nil {
+
+		log.WithFields(log.Fields{constants.Error: err.Error()}).Info(constants.EndException)
+		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+
+	} else {
+
+		humanResources.UpdateDepartment(c, department)
+	}
+	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: updateDepartment}).Info(constants.EndFunction)
 
 }
