@@ -8,6 +8,7 @@ import (
 	constants "adventureVsModule/pkg/utils"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"net/http"
 	"time"
 )
 
@@ -43,5 +44,20 @@ func UpdateDepartment(c *gin.Context, department model.Department) {
 
 	department.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
 	common.Update(c, &department, db)
+	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
+}
+
+func DeleteDepartment(c *gin.Context, department model.Department) {
+	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
+	db := config.DB
+
+	department.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
+	if err := db.Delete(&department).Error; err != nil {
+		log.WithFields(log.
+			Fields{constants.Error: err.Error()}).
+			Info(constants.EndException)
+
+		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+	}
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
 }
