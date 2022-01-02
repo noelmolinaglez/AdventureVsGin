@@ -9,7 +9,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func List(c *gin.context, request dto.request, result interface{}, action string, query string) {
+func List(c *gin.Context, request dto.Request, result interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
