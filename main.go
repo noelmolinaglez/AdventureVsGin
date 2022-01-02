@@ -17,7 +17,7 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{})
 	})
 
-	r.GET("/generic", controller.List)
+	r.POST("/generic", controller.Crud)
 	r.GET("/departments", controller.ListDepartments)
 	r.POST("/departments/add", controller.CreateDepartment)
 	r.PUT("/departments", controller.UpdateDepartment)

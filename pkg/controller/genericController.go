@@ -16,7 +16,7 @@ const (
 	genericList       = "genericList"
 )
 
-func List(c *gin.Context) {
+func Crud(c *gin.Context) {
 	log.WithFields(log.Fields{constants.FileName: genericController, constants.FunctionName: genericList}).Info(constants.StartFunction)
 	var request dto.Request
 
@@ -27,7 +27,7 @@ func List(c *gin.Context) {
 
 	} else {
 		actionString := fmt.Sprintf("%sAction", request.Type)
-		queryString := "ListQuery"
+		queryString := fmt.Sprintf("%sQuery", request.Action)
 
 		var departments []model.Department
 
