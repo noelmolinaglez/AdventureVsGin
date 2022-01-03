@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
+	"time"
 )
 
 const (
@@ -16,7 +17,7 @@ const (
 	genericList       = "genericList"
 )
 
-func List(c *gin.Context) {
+func Crud(c *gin.Context) {
 	log.WithFields(log.Fields{constants.FileName: genericController, constants.FunctionName: genericList}).Info(constants.StartFunction)
 	var request dto.Request
 
@@ -29,14 +30,28 @@ func List(c *gin.Context) {
 		actionString := fmt.Sprintf("%sAction", request.Type)
 		queryString := fmt.Sprintf("%sQuery", request.Action)
 
-		var departments []model.Department
-
-		results := map[string]interface{}{
-			"Department": departments,
+		if request.Type == "List"{
+			ListQuery(c, request, actionString, queryString)
 		}
+		else{
+			model.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
 
-		repository.List(c, request, results[request.Type], actionString, queryString)
+		}
 	}
 
 	log.WithFields(log.Fields{constants.FileName: genericController, constants.FunctionName: genericList}).Info(constants.EndFunction)
+}
+
+func ListQuery(c *gin.Context, request dto.Request, actionString string, queryString string) {
+	var departments []model.Department
+
+	results := map[string]interface{}{
+		"Department": departments,
+	}
+
+	actions := map[string]func(c *gin.Context, request dto.Request, result interface{}, action string, query string){
+		"List": repository.List,
+	}
+
+	actions[request.Action](c, request, results[request.Type], actionString, queryString)
 }
