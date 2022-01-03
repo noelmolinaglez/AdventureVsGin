@@ -26,3 +26,12 @@ func Create(c *gin.Context, model interface{}, action string, query string) {
 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }
+
+func Update(c *gin.Context, model interface{}, action string, query string) {
+	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
+	db := config.DB
+
+	common.Update(c, &model, db)
+
+	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
+}
