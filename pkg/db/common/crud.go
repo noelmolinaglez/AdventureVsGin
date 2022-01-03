@@ -51,3 +51,13 @@ func Update(c *gin.Context, myInstance interface{}, db *gorm.DB) {
 		c.JSON(http.StatusCreated, gin.H{"data": myInstance})
 	}
 }
+
+func Delete(c *gin.Context, myInstance interface{}, db *gorm.DB) {
+	if err := db.Delete(myInstance).Error; err != nil {
+		log.WithFields(log.
+			Fields{utils.Error: err.Error()}).
+			Info(utils.EndException)
+
+		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+	}
+}
