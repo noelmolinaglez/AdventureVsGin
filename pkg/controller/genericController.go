@@ -32,11 +32,17 @@ func Crud(c *gin.Context) {
 		if request.Action == "List" {
 			ListQuery(c, request, actionString, queryString)
 		} else {
+
 			var department model.Department
 			models := map[string]interface{}{
 				"Department": department,
 			}
 
+			actions := map[string]func(c *gin.Context, myInstance interface{}, action string, query string){
+				"Create": repository.Create,
+				"Update": repository.Update,
+				"Delete": repository.Delete,
+			}
 			myInstance := models[request.Type]
 			//myInstance.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
 			if err := c.ShouldBindJSON(&myInstance); err != nil {
@@ -46,7 +52,7 @@ func Crud(c *gin.Context) {
 
 			} else {
 
-				repository.Create(c, &myInstance, actionString, queryString)
+				actions[request.Action](c, &myInstance, actionString, queryString)
 			}
 		}
 	}
