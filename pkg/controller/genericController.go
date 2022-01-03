@@ -29,18 +29,47 @@ func Crud(c *gin.Context) {
 		actionString := fmt.Sprintf("%sAction", request.Type)
 		queryString := fmt.Sprintf("%sQuery", request.Action)
 
-		var departments []model.Department
+		if request.Action == "List" {
+			ListQuery(c, request, actionString, queryString)
+		} else {
 
-		results := map[string]interface{}{
-			"Department": departments,
+			var department model.Department
+			models := map[string]interface{}{
+				"Department": department,
+			}
+
+			actions := map[string]func(c *gin.Context, myInstance interface{}, action string, query string){
+				"Create": repository.Create,
+				"Update": repository.Update,
+				"Delete": repository.Delete,
+			}
+			myInstance := models[request.Type]
+			//myInstance.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
+			if err := c.ShouldBindJSON(&myInstance); err != nil {
+
+				log.WithFields(log.Fields{constants.Error: err.Error()}).Info(constants.EndException)
+				c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+
+			} else {
+
+				actions[request.Action](c, &myInstance, actionString, queryString)
+			}
 		}
-
-		actions := map[string]func(c *gin.Context, request dto.Request, result interface{}, action string, query string){
-			"List": repository.List,
-		}
-
-		actions[request.Action](c, request, results[request.Type], actionString, queryString)
 	}
 
 	log.WithFields(log.Fields{constants.FileName: genericController, constants.FunctionName: genericList}).Info(constants.EndFunction)
+}
+
+func ListQuery(c *gin.Context, request dto.Request, actionString string, queryString string) {
+	var departments []model.Department
+
+	results := map[string]interface{}{
+		"Department": departments,
+	}
+
+	actions := map[string]func(c *gin.Context, request dto.Request, result interface{}, action string, query string){
+		"List": repository.List,
+	}
+
+	actions[request.Action](c, request, results[request.Type], actionString, queryString)
 }
