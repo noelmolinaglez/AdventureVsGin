@@ -16,7 +16,7 @@ const (
 	genericList       = "genericList"
 )
 
-func Crud(c *gin.Context) {
+func List(c *gin.Context) {
 	log.WithFields(log.Fields{constants.FileName: genericController, constants.FunctionName: genericList}).Info(constants.StartFunction)
 	var request dto.Request
 
@@ -35,11 +35,7 @@ func Crud(c *gin.Context) {
 			"Department": departments,
 		}
 
-		actions := map[string]func(c *gin.Context, request dto.Request, result interface{}, action string, query string){
-			"List": repository.List,
-		}
-
-		actions[request.Action](c, request, results[request.Type], actionString, queryString)
+		repository.List(c, request, results[request.Type], actionString, queryString)
 	}
 
 	log.WithFields(log.Fields{constants.FileName: genericController, constants.FunctionName: genericList}).Info(constants.EndFunction)
