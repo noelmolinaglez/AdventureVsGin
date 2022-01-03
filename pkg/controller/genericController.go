@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
-	"time"
 )
 
 const (
@@ -30,12 +29,25 @@ func Crud(c *gin.Context) {
 		actionString := fmt.Sprintf("%sAction", request.Type)
 		queryString := fmt.Sprintf("%sQuery", request.Action)
 
-		if request.Type == "List"{
+		if request.Action == "List" {
 			ListQuery(c, request, actionString, queryString)
-		}
-		else{
-			model.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
+		} else {
+			var department model.Department
+			models := map[string]interface{}{
+				"Department": department,
+			}
 
+			myInstance := models[request.Type]
+			//myInstance.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
+			if err := c.ShouldBindJSON(&myInstance); err != nil {
+
+				log.WithFields(log.Fields{constants.Error: err.Error()}).Info(constants.EndException)
+				c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+
+			} else {
+
+				repository.Create(c, &myInstance, actionString, queryString)
+			}
 		}
 	}
 
