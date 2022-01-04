@@ -29,7 +29,7 @@ func ReadValues(c *gin.Context, request dto.Request, db *gorm.DB, results interf
 
 func Create(c *gin.Context, myInstance interface{}, db *gorm.DB) {
 
-	if err := db.Create(myInstance).Error; err != nil {
+	if err := db.Create(&myInstance).Error; err != nil {
 		log.WithFields(log.
 			Fields{utils.Error: err.Error()}).
 			Info(utils.EndException)

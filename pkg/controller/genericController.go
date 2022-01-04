@@ -7,6 +7,7 @@ import (
 	constants "adventureVsModule/pkg/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	jsoniter "github.com/json-iterator/go"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -43,21 +44,29 @@ func Crud(c *gin.Context) {
 				"Update": repository.Update,
 				"Delete": repository.Delete,
 			}
-			myInstance := models[request.Type]
+
+			myInstance, _ := FillModel(models, request)
+
 			//myInstance.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
-			if err := c.ShouldBindJSON(&myInstance); err != nil {
 
-				log.WithFields(log.Fields{constants.Error: err.Error()}).Info(constants.EndException)
-				c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
-
-			} else {
-
-				actions[request.Action](c, &myInstance, actionString, queryString)
-			}
+			actions[request.Action](c, myInstance, actionString, queryString)
 		}
 	}
-
 	log.WithFields(log.Fields{constants.FileName: genericController, constants.FunctionName: genericList}).Info(constants.EndFunction)
+
+}
+
+func FillModel(models map[string]interface{}, request dto.Request) (interface{}, error) {
+	myInstance := models[request.Type]
+	json, ok := jsoniter.Marshal(request.Data)
+	if ok != nil {
+		return nil, ok
+	}
+	err := jsoniter.Unmarshal(json, myInstance)
+	if err != nil {
+		return nil, err
+	}
+	return myInstance, nil
 }
 
 func ListQuery(c *gin.Context, request dto.Request, actionString string, queryString string) {
