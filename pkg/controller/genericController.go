@@ -40,8 +40,8 @@ func Crud(c *gin.Context) {
 
 			actions := map[string]func(c *gin.Context, model interface{}, data interface{}, action string, query string){
 				"Create": repository.Create,
-				//"Update": repository.Update,
-				//"Delete": repository.Delete,
+				"Update": repository.Update,
+				"Delete": repository.Delete,
 			}
 
 			myInstance, ok := models[request.Type]
