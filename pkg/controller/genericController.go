@@ -38,26 +38,23 @@ func Crud(c *gin.Context) {
 				"Department": department,
 			}
 
-			actions := map[string]func(c *gin.Context, myInstance interface{}, action string, query string){
+			actions := map[string]func(c *gin.Context, model interface{}, data interface{}, action string, query string){
 				"Create": repository.Create,
 				"Update": repository.Update,
 				"Delete": repository.Delete,
 			}
-			myInstance := models[request.Type]
-			//myInstance.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
-			if err := c.ShouldBindJSON(&myInstance); err != nil {
 
-				log.WithFields(log.Fields{constants.Error: err.Error()}).Info(constants.EndException)
-				c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+			myInstance, ok := models[request.Type]
+			if !ok {
 
-			} else {
-
-				actions[request.Action](c, &myInstance, actionString, queryString)
 			}
+
+			//myInstance.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
+			actions[request.Action](c, myInstance, request.Data, actionString, queryString)
 		}
 	}
-
 	log.WithFields(log.Fields{constants.FileName: genericController, constants.FunctionName: genericList}).Info(constants.EndFunction)
+
 }
 
 func ListQuery(c *gin.Context, request dto.Request, actionString string, queryString string) {
