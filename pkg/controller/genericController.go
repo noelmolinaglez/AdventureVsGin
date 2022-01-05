@@ -57,9 +57,12 @@ func Crud(c *gin.Context) {
 func FillModels() map[string]interface{} {
 	var department model.Department
 	var employee model.Employee
+	var employeeDepartment model.EmployeeDepartmentHistory
+
 	models := map[string]interface{}{
 		"Department": department,
 		"Employee":   employee,
+		"History":    employeeDepartment,
 	}
 	return models
 }
@@ -67,10 +70,12 @@ func FillModels() map[string]interface{} {
 func ListQuery(c *gin.Context, request dto.Request, actionString string, queryString string) {
 	var departments []model.Department
 	var employees []model.Employee
+	var employeeDepartments []model.EmployeeDepartmentHistory
 
 	results := map[string]interface{}{
 		"Department": departments,
 		"Employee":   employees,
+		"History":    employeeDepartments,
 	}
 
 	actions := map[string]func(c *gin.Context, request dto.Request, result interface{}, action string, query string){
