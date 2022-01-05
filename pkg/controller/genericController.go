@@ -33,10 +33,7 @@ func Crud(c *gin.Context) {
 			ListQuery(c, request, actionString, queryString)
 		} else {
 
-			var department model.Department
-			models := map[string]interface{}{
-				"Department": department,
-			}
+			models := FillModels()
 
 			actions := map[string]func(c *gin.Context, model interface{}, data interface{}, action string, query string){
 				"Create": repository.Create,
@@ -55,6 +52,14 @@ func Crud(c *gin.Context) {
 	}
 	log.WithFields(log.Fields{constants.FileName: genericController, constants.FunctionName: genericList}).Info(constants.EndFunction)
 
+}
+
+func FillModels() map[string]interface{} {
+	var department model.Department
+	models := map[string]interface{}{
+		"Department": department,
+	}
+	return models
 }
 
 func ListQuery(c *gin.Context, request dto.Request, actionString string, queryString string) {
