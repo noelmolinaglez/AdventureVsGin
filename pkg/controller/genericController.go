@@ -7,7 +7,6 @@ import (
 	constants "adventureVsModule/pkg/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	jsoniter "github.com/json-iterator/go"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -35,38 +34,27 @@ func Crud(c *gin.Context) {
 		} else {
 
 			var department model.Department
-			models := map[string]interface{}{
-				"Department": department,
+			models := map[string]string{
+				"Department": department.TableName(),
 			}
 
-			actions := map[string]func(c *gin.Context, myInstance interface{}, action string, query string){
+			actions := map[string]func(c *gin.Context, tableName string, myInstance interface{}, action string, query string){
 				"Create": repository.Create,
 				"Update": repository.Update,
 				"Delete": repository.Delete,
 			}
 
-			myInstance, _ := FillModel(models, request)
+			myInstance, ok := models[request.Type]
+			if !ok {
+
+			}
 
 			//myInstance.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
-
-			actions[request.Action](c, myInstance, actionString, queryString)
+			actions[request.Action](c, myInstance, request.Data, actionString, queryString)
 		}
 	}
 	log.WithFields(log.Fields{constants.FileName: genericController, constants.FunctionName: genericList}).Info(constants.EndFunction)
 
-}
-
-func FillModel(models map[string]interface{}, request dto.Request) (interface{}, error) {
-	myInstance := models[request.Type]
-	json, ok := jsoniter.Marshal(request.Data)
-	if ok != nil {
-		return nil, ok
-	}
-	err := jsoniter.Unmarshal(json, myInstance)
-	if err != nil {
-		return nil, err
-	}
-	return myInstance, nil
 }
 
 func ListQuery(c *gin.Context, request dto.Request, actionString string, queryString string) {

@@ -9,7 +9,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func List(c *gin.Context, tableName string, request dto.Request, result interface{}, action string, query string) {
+func List(c *gin.Context, request dto.Request, result interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
@@ -22,7 +22,7 @@ func Create(c *gin.Context, tableName string, model interface{}, action string, 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
-	common.Create(c, &model, db)
+	common.Create(c, tableName, model, db)
 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }
@@ -31,7 +31,7 @@ func Update(c *gin.Context, tableName string, model interface{}, action string, 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
-	common.Update(c, &model, db)
+	common.Update(c, tableName, &model, db)
 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }
@@ -40,7 +40,7 @@ func Delete(c *gin.Context, tableName string, model interface{}, action string, 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
-	common.Delete(c, &model, db)
+	common.Delete(c, tableName, &model, db)
 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }

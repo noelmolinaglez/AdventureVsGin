@@ -27,9 +27,22 @@ func ReadValues(c *gin.Context, request dto.Request, db *gorm.DB, results interf
 	}
 }
 
-func Create(c *gin.Context, myInstance interface{}, db *gorm.DB) {
+func Create(c *gin.Context, tableName string, myModel interface{}, db *gorm.DB) {
 
-	if err := db.Create(&myInstance).Error; err != nil {
+	query := db.Table(tableName)
+	if err := query.Create(&myModel).Error; err != nil {
+		log.WithFields(log.
+			Fields{utils.Error: err.Error()}).
+			Info(utils.EndException)
+
+		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
+	} else {
+		c.JSON(http.StatusCreated, gin.H{"data": myModel})
+	}
+}
+
+func Update(c *gin.Context, tableName string, myInstance interface{}, db *gorm.DB) {
+	if err := db.Table(tableName).Updates(&myInstance).Error; err != nil {
 		log.WithFields(log.
 			Fields{utils.Error: err.Error()}).
 			Info(utils.EndException)
@@ -40,20 +53,8 @@ func Create(c *gin.Context, myInstance interface{}, db *gorm.DB) {
 	}
 }
 
-func Update(c *gin.Context, myInstance interface{}, db *gorm.DB) {
-	if err := db.Updates(&myInstance).Error; err != nil {
-		log.WithFields(log.
-			Fields{utils.Error: err.Error()}).
-			Info(utils.EndException)
-
-		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
-	} else {
-		c.JSON(http.StatusCreated, gin.H{"data": myInstance})
-	}
-}
-
-func Delete(c *gin.Context, myInstance interface{}, db *gorm.DB) {
-	if err := db.Delete(myInstance).Error; err != nil {
+func Delete(c *gin.Context, tableName string, myInstance interface{}, db *gorm.DB) {
+	if err := db.Table(tableName).Delete(myInstance).Error; err != nil {
 		log.WithFields(log.
 			Fields{utils.Error: err.Error()}).
 			Info(utils.EndException)

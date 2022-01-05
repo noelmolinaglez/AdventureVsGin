@@ -44,7 +44,7 @@ func CreateDepartment(c *gin.Context) {
 
 	} else {
 
-		humanResources.CreateDepartment(c, department)
+		//humanResources.CreateDepartment(c, department)
 	}
 	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
 
@@ -60,7 +60,7 @@ func UpdateDepartment(c *gin.Context) {
 
 	} else {
 
-		humanResources.UpdateDepartment(c, department)
+		//humanResources.UpdateDepartment(c, department)
 	}
 	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: updateDepartment}).Info(constants.EndFunction)
 
@@ -76,7 +76,7 @@ func DeleteDepartment(c *gin.Context) {
 
 	} else {
 
-		humanResources.DeleteDepartment(c, department)
+		//humanResources.DeleteDepartment(c, department)
 	}
 	log.WithFields(log.Fields{constants.FileName: departmentController, constants.FunctionName: deleteDepartment}).Info(constants.EndFunction)
 

@@ -8,7 +8,6 @@ import (
 	constants "adventureVsModule/pkg/utils"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	"time"
 )
 
 const (
@@ -27,29 +26,29 @@ func ListDepartments(c *gin.Context, request dto.Request) {
 	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: lDepartments}).Info(constants.EndFunction)
 }
 
-func CreateDepartment(c *gin.Context, department model.Department) {
-	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
-	db := config.DB
-
-	department.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
-	common.Create(c, &department, db)
-
-	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
-}
-
-func UpdateDepartment(c *gin.Context, department model.Department) {
-	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
-	db := config.DB
-
-	department.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
-	common.Update(c, &department, db)
-	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
-}
-
-func DeleteDepartment(c *gin.Context, department model.Department) {
-	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
-	db := config.DB
-
-	common.Delete(c, department, db)
-	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
-}
+//func CreateDepartment(c *gin.Context, department model.Department) {
+//	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
+//	db := config.DB
+//
+//	department.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
+//	common.Create(c, &department, db)
+//
+//	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
+//}
+//
+//func UpdateDepartment(c *gin.Context, department model.Department) {
+//	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
+//	db := config.DB
+//
+//	department.ModifiedDate = time.Now().Format("2006-01-02 15:04:05")
+//	common.Update(c, &department, db)
+//	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
+//}
+//
+//func DeleteDepartment(c *gin.Context, department model.Department) {
+//	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.StartFunction)
+//	db := config.DB
+//
+//	common.Delete(c, department, db)
+//	log.WithFields(log.Fields{constants.FileName: departmentRepository, constants.FunctionName: addDepartment}).Info(constants.EndFunction)
+//}
