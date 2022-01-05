@@ -27,20 +27,20 @@ func Create(c *gin.Context, model interface{}, data interface{}, action string, 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }
 
-func Update(c *gin.Context, tableName string, model interface{}, action string, query string) {
+func Update(c *gin.Context, model interface{}, data interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
-	common.Update(c, tableName, &model, db)
+	common.Update(c, model, data, db)
 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }
 
-func Delete(c *gin.Context, tableName string, model interface{}, action string, query string) {
+func Delete(c *gin.Context, model interface{}, data interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
-	common.Delete(c, tableName, &model, db)
+	common.Delete(c, model, data, db)
 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }
