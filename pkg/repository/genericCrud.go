@@ -9,7 +9,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func List(c *gin.Context, request dto.Request, result interface{}, action string, query string) {
+func List(c *gin.Context, tableName string, request dto.Request, result interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
@@ -18,7 +18,7 @@ func List(c *gin.Context, request dto.Request, result interface{}, action string
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }
 
-func Create(c *gin.Context, model interface{}, action string, query string) {
+func Create(c *gin.Context, tableName string, model interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
@@ -27,7 +27,7 @@ func Create(c *gin.Context, model interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }
 
-func Update(c *gin.Context, model interface{}, action string, query string) {
+func Update(c *gin.Context, tableName string, model interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
@@ -36,7 +36,7 @@ func Update(c *gin.Context, model interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }
 
-func Delete(c *gin.Context, model interface{}, action string, query string) {
+func Delete(c *gin.Context, tableName string, model interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
