@@ -18,11 +18,11 @@ func List(c *gin.Context, request dto.Request, result interface{}, action string
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }
 
-func Create(c *gin.Context, tableName string, model interface{}, action string, query string) {
+func Create(c *gin.Context, model interface{}, data interface{}, action string, query string) {
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.StartFunction)
 	db := config.DB
 
-	common.Create(c, tableName, model, db)
+	common.Create(c, model, data, db)
 
 	log.WithFields(log.Fields{constants.FileName: action, constants.FunctionName: query}).Info(constants.EndFunction)
 }

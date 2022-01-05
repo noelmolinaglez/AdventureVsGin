@@ -27,17 +27,16 @@ func ReadValues(c *gin.Context, request dto.Request, db *gorm.DB, results interf
 	}
 }
 
-func Create(c *gin.Context, tableName string, myModel interface{}, db *gorm.DB) {
+func Create(c *gin.Context, model interface{}, data interface{}, db *gorm.DB) {
 
-	query := db.Table(tableName)
-	if err := query.Create(&myModel).Error; err != nil {
+	if err := db.Model(&model).Create(data).Error; err != nil {
 		log.WithFields(log.
 			Fields{utils.Error: err.Error()}).
 			Info(utils.EndException)
 
 		c.JSON(http.StatusInternalServerError, gin.H{"data": nil})
 	} else {
-		c.JSON(http.StatusCreated, gin.H{"data": myModel})
+		c.JSON(http.StatusCreated, gin.H{"data": data})
 	}
 }
 
