@@ -59,12 +59,14 @@ func FillModels() map[string]interface{} {
 	var employee model.Employee
 	var employeeDepartment model.EmployeeDepartmentHistory
 	var shift model.Shift
+	var payment model.EmployeePayHistory
 
 	models := map[string]interface{}{
 		"Department": department,
 		"Employee":   employee,
 		"History":    employeeDepartment,
 		"Shift":      shift,
+		"Payment":    payment,
 	}
 	return models
 }
@@ -74,12 +76,14 @@ func ListQuery(c *gin.Context, request dto.Request, actionString string, querySt
 	var employees []model.Employee
 	var employeeDepartments []model.EmployeeDepartmentHistory
 	var shifts []model.Shift
+	var payments []model.EmployeePayHistory
 
 	results := map[string]interface{}{
 		"Department": departments,
 		"Employee":   employees,
 		"History":    employeeDepartments,
 		"Shift":      shifts,
+		"Payment":    payments,
 	}
 
 	actions := map[string]func(c *gin.Context, request dto.Request, result interface{}, action string, query string){
