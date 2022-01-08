@@ -6,7 +6,6 @@ import (
 	"adventureVsModule/config"
 	"adventureVsModule/pkg/controller"
 	"github.com/gin-gonic/gin"
-	"github.com/noelmolinaglez/simplePdf/pdf"
 )
 
 func main() {
@@ -19,8 +18,6 @@ func main() {
 	})
 
 	r.POST("/generic", controller.Crud)
-
-	pdf.SamplePdf()
 
 	r.Run()
 }
