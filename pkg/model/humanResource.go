@@ -1,16 +1,5 @@
 package model
 
-type Department struct {
-	DepartmentID uint   `json:"DepartmentID" gorm:"column:DepartmentID;primaryKey;autoIncrement:true"`
-	Name         string `json:"Name" form:"name" gorm:"column:Name"`
-	GroupName    string `json:"GroupName" form:"groupName" gorm:"column:GroupName"`
-	ModifiedDate string `json:"ModifiedDate" gorm:"column:ModifiedDate"`
-}
-
-func (Department) TableName() string {
-	return "HumanResources.Department"
-}
-
 type Employee struct {
 	BusinessEntityId  uint   `json:"BusinessEntityID" gorm:"primary_key"`
 	NationalIdNumber  string `json:"NationalIDNumber"`
