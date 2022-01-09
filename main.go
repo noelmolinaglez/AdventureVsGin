@@ -18,6 +18,7 @@ func main() {
 	})
 
 	r.POST("/generic", controller.Crud)
+	r.GET("/pdf", controller.ExportPDf)
 
 	r.Run()
 }
