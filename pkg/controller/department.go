@@ -23,15 +23,25 @@ func ExportPDf(c *gin.Context) {
 	doc := helpers.CreateSimpleDoc()
 	title := helpers.CreateSimpleTitle("Sample")
 	table := dto.TableStruct{
-		Font: dto.FontStruct{
+		BodyFont: dto.FontStruct{
 			Family: "Times",
 			Style:  "",
 			Size:   12,
 		},
-		Color: dto.ColorStruct{
+		BodyColor: dto.ColorStruct{
 			R: 255,
 			G: 255,
 			B: 255,
+		},
+		HeaderFont: dto.FontStruct{
+			Family: "Times",
+			Style:  "B",
+			Size:   16,
+		},
+		HeaderColor: dto.ColorStruct{
+			R: 240,
+			G: 240,
+			B: 240,
 		},
 	}
 	data := make([]interfaces.SimpleDoc, len(results))

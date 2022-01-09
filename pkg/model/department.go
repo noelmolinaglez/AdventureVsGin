@@ -27,7 +27,7 @@ func (Department) GetHeaders() []dto.CellStruct {
 		Border:  "1",
 		Ln:      0,
 		Align:   "C",
-		Fill:    false,
+		Fill:    true,
 		Link:    0,
 		LinkStr: "",
 	}
@@ -38,7 +38,7 @@ func (Department) GetHeaders() []dto.CellStruct {
 		Border:  "1",
 		Ln:      0,
 		Align:   "C",
-		Fill:    false,
+		Fill:    true,
 		Link:    0,
 		LinkStr: "",
 	}
@@ -49,7 +49,7 @@ func (Department) GetHeaders() []dto.CellStruct {
 		Border:  "1",
 		Ln:      0,
 		Align:   "C",
-		Fill:    false,
+		Fill:    true,
 		Link:    0,
 		LinkStr: "",
 	}
@@ -60,7 +60,7 @@ func (Department) GetHeaders() []dto.CellStruct {
 		Border:  "1",
 		Ln:      0,
 		Align:   "C",
-		Fill:    false,
+		Fill:    true,
 		Link:    0,
 		LinkStr: "",
 	}
