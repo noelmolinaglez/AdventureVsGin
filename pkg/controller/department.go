@@ -21,6 +21,7 @@ func ExportPDf(c *gin.Context) {
 	}
 
 	doc := helpers.CreateSimpleDoc()
+	doc.Path = "reports"
 	title := helpers.CreateSimpleTitle("Sample")
 	table := dto.TableStruct{
 		BodyFont: dto.FontStruct{
